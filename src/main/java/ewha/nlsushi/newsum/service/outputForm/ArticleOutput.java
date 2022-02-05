@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.List;
 
 @Data
 public class ArticleOutput {
@@ -15,7 +16,7 @@ public class ArticleOutput {
     private String company;
 
     private String img;
-    private String article_origin;
+    private String[] article_origin;
     private String article_extractive;
 
 
@@ -35,7 +36,7 @@ public class ArticleOutput {
         return img;
     }
 
-    public String getArticle_origin() {
+    public String[] getArticle_origin() {
         return article_origin;
     }
 
@@ -48,7 +49,7 @@ public class ArticleOutput {
         this.writer = writer;
         this.company = company;
         this.img = img;
-        this.article_origin = article_origin;
+        this.article_origin = article_origin.split("\n");
         this.article_extractive = article_extractive;
     }
 }
