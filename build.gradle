@@ -1,7 +1,6 @@
 plugins {
     id 'org.springframework.boot' version '2.6.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
     id 'java'
 }
 
@@ -39,9 +38,6 @@ dependencies {
     implementation('ch.qos.logback:logback-classic')
 // mariaDB 설정
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-    compile("org.mariadb.jdbc:mariadb-java-client")
-    implementation 'com.querydsl:querydsl-jpa'
-    compile group: 'com.querydsl', name: 'querydsl-jpa', version: '4.3.1'
 }
 
 test {

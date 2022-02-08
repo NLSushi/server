@@ -16,6 +16,7 @@ public class ArticleApiController {
 
     private final ArticleService articleService;
 
+    //commit 왜 안되니
     //모든 기사 조회
     @GetMapping(value="api/article")
     public Result viewAllArticle(){
