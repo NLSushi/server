@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,8 +21,9 @@ public class ArticleService {
     //기사 조회
     public List<ArticleOutput> showArticles(){
         List<Article> articles =  articleRepository.findAll();
-        return articles.stream().map(a ->
-                new ArticleOutput(a.getTitle(),a.getWriter(),a.getDate(),a.getCompany(),a.getImg(),a.getArticle_origin(),a.getArticle_extractive(),a.getArticle_hashtag()))
+        List<ArticleOutput> result =  articles.stream().map(a ->
+                new ArticleOutput(a.getId(),a.getTitle(),a.getWriter(),a.getDate(),a.getCompany(),a.getImg(),a.getArticle_origin(),a.getArticle_extractive(),a.getArticle_hashtag()))
                 .collect(Collectors.toList());
+        return result;
     }
 }
