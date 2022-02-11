@@ -12,6 +12,8 @@ import java.util.List;
 @Data
 public class ArticleOutput {
 
+    private Long id;
+
     private String title;
     private String writer;
     private String date;
@@ -23,8 +25,9 @@ public class ArticleOutput {
     @Nullable
     private String[] article_hashtag;
 
-
-
+    public Long getId() {
+        return id;
+    }
     public String getTitle() {
         return title;
     }
@@ -57,7 +60,8 @@ public class ArticleOutput {
         return article_hashtag;
     }
 
-    public ArticleOutput(String title, String writer, String date, String company, String img, String article_origin, String article_extractive, @Nullable String article_hashtag) {
+    public ArticleOutput(Long id,String title, String writer, String date, String company, String img, String article_origin, String article_extractive, @Nullable String article_hashtag) {
+        this.id = id;
         this.title = title;
         this.writer = writer;
         this.date = date;
