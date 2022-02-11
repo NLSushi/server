@@ -11,6 +11,7 @@ cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
+# CI 실행 
 before_script:
   - cd server/
 script: "./gradlew clean build"
