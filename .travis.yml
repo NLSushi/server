@@ -13,8 +13,6 @@ cache:
     - '$HOME/.gradle'
 before_install:
   - chmod +x gradlew
-before_script:
-  - cd server/
 script: "./gradlew clean build"
 
 # CI 실행 완료시 메일로 알람
