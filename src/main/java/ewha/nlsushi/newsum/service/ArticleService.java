@@ -22,7 +22,7 @@ public class ArticleService {
     public List<ArticleOutput> showArticles(){
         List<Article> articles =  articleRepository.findAll();
         List<ArticleOutput> result =  articles.stream().map(a ->
-                new ArticleOutput(a.getId(),a.getTitle(),a.getWriter(),a.getDate(),a.getCompany(),a.getImg(),a.getArticle_origin(),a.getArticle_extractive(),a.getArticle_hashtag()))
+                new ArticleOutput(a.getId(),a.getTitle(),a.getWriter(),a.getDate(),a.getCompany(),a.getImg(),a.getArticle_origin(),a.getArticle_extractive(),a.getArticle_hashtag(),a.getCategory()))
                 .collect(Collectors.toList());
         return result;
     }

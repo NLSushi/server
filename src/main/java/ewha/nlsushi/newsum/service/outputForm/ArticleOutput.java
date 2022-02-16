@@ -24,6 +24,7 @@ public class ArticleOutput {
     private String[] article_extractive;
     @Nullable
     private String[] article_hashtag;
+    private String category;
 
     public Long getId() {
         return id;
@@ -60,7 +61,11 @@ public class ArticleOutput {
         return article_hashtag;
     }
 
-    public ArticleOutput(Long id,String title, String writer, String date, String company, String img, String article_origin, String article_extractive, @Nullable String article_hashtag) {
+    public String getCategory() {
+        return category;
+    }
+
+    public ArticleOutput(Long id, String title, String writer, String date, String company, String img, String article_origin, String article_extractive, @Nullable String article_hashtag,String category) {
         this.id = id;
         this.title = title;
         this.writer = writer;
@@ -72,5 +77,6 @@ public class ArticleOutput {
         if(article_hashtag != null){
         this.article_hashtag = article_hashtag.split("#");}
         else this.article_hashtag = null;
+        this.category = category;
     }
 }
