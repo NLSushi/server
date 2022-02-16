@@ -28,6 +28,7 @@ public class Article {
     private String article_origin;
     private String article_extractive;
     private String article_hashtag;
+    private String category;
 
     public Long getId() {
         return id;
@@ -57,6 +58,10 @@ public class Article {
         return date;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     @Nullable
     public String getArticle_hashtag() {
         return article_hashtag;
@@ -66,7 +71,7 @@ public class Article {
         return article_extractive;
     }
 
-    public Article(Long id, String title, String writer, String date, String company, String img, String article_origin, String article_extractive, String article_hashtag) {
+    public Article(Long id, String title, String writer, String date, String company, String img, String article_origin, String article_extractive, String article_hashtag,String category) {
         this.id = id;
         this.title = title;
         this.writer = writer;
@@ -76,5 +81,6 @@ public class Article {
         this.article_origin = article_origin;
         this.article_extractive = article_extractive;
         this.article_hashtag = article_hashtag;
+        this.category = category;
     }
 }
