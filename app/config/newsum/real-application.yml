@@ -1,11 +1,41 @@
 spring:
   profiles: set1
+  datasource:
+    url: jdbc:mariadb://newsum.cobmk4nqrt98.ap-northeast-2.rds.amazonaws.com:3306/newsum_db
+    username: nlsushi
+    password: nlsushi14
+    driver-class-name: org.mariadb.jdbc.Driver
+    jpa:
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          format_sql: true
+          show_sql: true
 server:
   port: 8082
+logging:
+  level:
+    org.hibernate.sql: debug
 ---
 spring:
   profiles: set2
+  datasource:
+    url: jdbc:mariadb://newsum.cobmk4nqrt98.ap-northeast-2.rds.amazonaws.com:3306/newsum_db
+    username: nlsushi
+    password: nlsushi14
+    driver-class-name: org.mariadb.jdbc.Driver
+    jpa:
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          format_sql: true
+          show_sql: true
 
 server:
   port: 8083
+logging:
+  level:
+    org.hibernate.sql: debug
                   
