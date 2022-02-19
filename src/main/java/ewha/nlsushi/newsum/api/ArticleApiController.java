@@ -37,6 +37,22 @@ public class ArticleApiController {
         return new Result(response);
     }
 
+    @GetMapping(value="api/joongang/recent")
+    public Result viewJoongangRecent(){
+        List<ArticleOutput> response = articleService.showJoongangRecent();
+        return new Result(response);
+    }
+    @GetMapping(value="api/khan/recent")
+    public Result viewKhanRecent(){
+        List<ArticleOutput> response = articleService.showKhanRecent();
+        return new Result(response);
+    }
+    @GetMapping(value="api/han/recent")
+    public Result viewHanRecent(){
+        List<ArticleOutput> response = articleService.showHanRecent();
+        return new Result(response);
+    }
+
     @Data
     @AllArgsConstructor
     static class Result<T>{

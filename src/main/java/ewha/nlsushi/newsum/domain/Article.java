@@ -29,6 +29,7 @@ public class Article {
     private String article_extractive;
     private String article_hashtag;
     private String category;
+    private boolean recent;
 
     public Long getId() {
         return id;
@@ -71,7 +72,11 @@ public class Article {
         return article_extractive;
     }
 
-    public Article(Long id, String title, String writer, String date, String company, String img, String article_origin, String article_extractive, String article_hashtag,String category) {
+    public boolean isRecent() {
+        return recent;
+    }
+
+    public Article(Long id, String title, String writer, String date, String company, String img, String article_origin, String article_extractive, String article_hashtag, String category,boolean recent) {
         this.id = id;
         this.title = title;
         this.writer = writer;
@@ -82,5 +87,6 @@ public class Article {
         this.article_extractive = article_extractive;
         this.article_hashtag = article_hashtag;
         this.category = category;
+        this.recent = recent;
     }
 }
