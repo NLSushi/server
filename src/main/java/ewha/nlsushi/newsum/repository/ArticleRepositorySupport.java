@@ -39,4 +39,11 @@ public class ArticleRepositorySupport extends QuerydslRepositorySupport {
                 .where(article.recent.eq(true))
                 .fetch();
     }
+
+    public List<Article> findRecent() {
+            return queryFactory
+                    .selectFrom(article)
+                    .where(article.recent.eq(true))
+                    .fetch();
+    }
 }
