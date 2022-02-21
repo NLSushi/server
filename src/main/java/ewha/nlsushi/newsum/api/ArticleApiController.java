@@ -59,6 +59,12 @@ public class ArticleApiController {
         return new Result(response);
     }
 
+    @GetMapping(value="test")
+    public Result test(){
+        List<ArticleOutput> response = articleService.showRecent();
+        return new Result(response);
+    }
+
     @Data
     @AllArgsConstructor
     static class Result<T>{
