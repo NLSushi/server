@@ -59,7 +59,7 @@ public class ArticleApiController {
         return new Result(response);
     }
 
-    @GetMapping(value="test")
+    @GetMapping(value="api/test")
     public Result test(){
         List<ArticleOutput> response = articleService.showRecent();
         return new Result(response);
