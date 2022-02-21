@@ -40,6 +40,9 @@ dependencies {
     // mariaDB 설정
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
+    implementation(group: 'ch.qos.logback', name: 'logback-classic', version:  '1.2.3')
+    implementation(group: 'ch.qos.logback', name: 'logback-core', version:  '1.2.3')
+
     //querydsl 관련 내용
     implementation("com.querydsl:querydsl-core") // querydsl
     implementation("com.querydsl:querydsl-jpa") // querydsl
