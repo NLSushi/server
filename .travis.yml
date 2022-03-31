@@ -13,6 +13,10 @@ cache:
     - '$HOME/.gradle'
 before_install:
   - chmod +x gradlew
+=======
+# CI 실행 
+before_script:
+  - cd server/
 script: "./gradlew clean build"
 
 # CI 실행 완료시 메일로 알람
@@ -51,3 +55,4 @@ deploy:
     on:
       repo: NLSushi/server
       branch: master
+=======
