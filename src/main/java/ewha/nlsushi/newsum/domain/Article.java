@@ -31,6 +31,9 @@ public class Article {
     private String category;
     private boolean recent;
 
+    @OneToMany(mappedBy = "scrap_article")
+    List<ScrapArticle> scrap_articles = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -76,8 +79,8 @@ public class Article {
         return recent;
     }
 
-    public Article(Long id, String title, String writer, String date, String company, String img, String article_origin, String article_extractive, String article_hashtag, String category,boolean recent) {
-        this.id = id;
+
+    public Article(String title, String writer, String date, String company, String img, String article_origin, String article_extractive, String article_hashtag, String category,boolean recent) {
         this.title = title;
         this.writer = writer;
         this.date = date;
@@ -89,4 +92,5 @@ public class Article {
         this.category = category;
         this.recent = recent;
     }
+
 }
