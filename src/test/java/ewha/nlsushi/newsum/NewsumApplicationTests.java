@@ -22,5 +22,4 @@ class NewsumApplicationTests {
         //then
         Assertions.assertThat(profile).isEqualTo("test");
     }
-
 }
