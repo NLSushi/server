@@ -1,5 +1,6 @@
 package ewha.nlsushi.newsum.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class Article {
     private boolean recent;
 
     @OneToMany(mappedBy = "scrap_article")
+    @JsonBackReference
     List<ScrapArticle> scrap_articles = new ArrayList<>();
 
     public Long getId() {

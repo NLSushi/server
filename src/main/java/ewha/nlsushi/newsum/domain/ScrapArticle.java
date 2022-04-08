@@ -1,5 +1,7 @@
 package ewha.nlsushi.newsum.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,10 +19,14 @@ public class ScrapArticle {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "member_pk")
+  //  @JsonManagedReference
+    @JsonIgnore
     private Member scrap_member;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id")
+ //   @JsonManagedReference
+    @JsonIgnore
     private Article scrap_article;
 
     public Member getScrap_member() {
