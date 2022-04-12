@@ -1,5 +1,6 @@
 package ewha.nlsushi.newsum.service;
 
+import ewha.nlsushi.newsum.api.SignupRequest;
 import ewha.nlsushi.newsum.domain.Article;
 import ewha.nlsushi.newsum.domain.Member;
 import ewha.nlsushi.newsum.repository.MemberRepository;
@@ -20,8 +21,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Member signup(String userId){
-        Member member = new Member(userId);
+    public Member signup(SignupRequest request){
+        Member member = new Member(request.getUserId());
         memberRepository.save(member);
         return member;
     }
