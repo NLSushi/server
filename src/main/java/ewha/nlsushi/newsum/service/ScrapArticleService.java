@@ -3,10 +3,7 @@ package ewha.nlsushi.newsum.service;
 import ewha.nlsushi.newsum.domain.Article;
 import ewha.nlsushi.newsum.domain.Member;
 import ewha.nlsushi.newsum.domain.ScrapArticle;
-import ewha.nlsushi.newsum.repository.ArticleRepository;
-import ewha.nlsushi.newsum.repository.ArticleRepositorySupport;
-import ewha.nlsushi.newsum.repository.MemberRepository;
-import ewha.nlsushi.newsum.repository.ScrapArticleRepository;
+import ewha.nlsushi.newsum.repository.*;
 import ewha.nlsushi.newsum.service.outputForm.ArticleOutput;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -26,6 +24,7 @@ public class ScrapArticleService {
     private final ArticleRepository articleRepository;
     private final ScrapArticleRepository scrapArticleRepository;
     private final ArticleService articleService;
+    private final ScrapArticleRepositorySupport scrapArticleRepositorySupport;
 
     @Transactional
     public ScrapArticle scrapArticle(String userId, Long articlePK){
@@ -36,8 +35,10 @@ public class ScrapArticleService {
     }
 
     @Transactional
-    public void UnScrapArticle(Long scrapArticlePK){
-        ScrapArticle target = scrapArticleRepository.getById(scrapArticlePK);
+    public void unScrapArticle(String userId, Long articleId){
+        Member user = memberRepository.findByUserId(userId);
+        Optional<Article> article = articleRepository.findById(articleId);
+        ScrapArticle target = scrapArticleRepositorySupport.findByUserIdandArticleId(userId,articleId);
         target.getScrap_article().getScrap_articles().remove(target);
         target.getScrap_member().getScrap_articles().remove(target);
         scrapArticleRepository.delete(target);

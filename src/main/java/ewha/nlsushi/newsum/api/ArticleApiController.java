@@ -1,18 +1,22 @@
 package ewha.nlsushi.newsum.api;
 
 
+import ewha.nlsushi.newsum.api.requestform.SearchRequest;
 import ewha.nlsushi.newsum.service.ArticleService;
 import ewha.nlsushi.newsum.service.outputForm.ArticleOutput;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,6 +56,11 @@ public class ArticleApiController {
         return new Result(response);
     }
 
+    @GetMapping(value="api/search")
+    public Result searchArticleByHashTag(@RequestBody @Valid SearchRequest request){
+        List<ArticleOutput> response = articleService.SearchArticlesByHashTag(request.getSearchKeyword());
+        return new Result(response);
+    }
 
 
     @Data

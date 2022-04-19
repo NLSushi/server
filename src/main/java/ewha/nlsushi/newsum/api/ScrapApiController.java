@@ -33,6 +33,6 @@ public class ScrapApiController {
 
     @DeleteMapping("api/unscrap")
     public void unScrapArticle(@RequestBody @Valid UnScrapRequest request) {
-        scrapArticleService.UnScrapArticle(request.getScraparticleId());
+        scrapArticleService.unScrapArticle(request.getUserId(), request.getArticleId());
     }
 }

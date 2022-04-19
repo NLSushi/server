@@ -28,7 +28,7 @@ public class Article {
     private String img;
     private String article_origin;
     private String article_extractive;
-    private String article_hashtag;
+    private String hashtag;
     private String category;
     private boolean recent;
 
@@ -70,7 +70,7 @@ public class Article {
 
     @Nullable
     public String getArticle_hashtag() {
-        return article_hashtag;
+        return hashtag;
     }
 
     public String getArticle_extractive() {
@@ -90,7 +90,7 @@ public class Article {
         this.img = img;
         this.article_origin = article_origin;
         this.article_extractive = article_extractive;
-        this.article_hashtag = article_hashtag;
+        this.hashtag = article_hashtag;
         this.category = category;
         this.recent = recent;
     }

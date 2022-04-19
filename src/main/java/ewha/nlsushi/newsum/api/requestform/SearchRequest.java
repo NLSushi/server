@@ -9,10 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UnScrapRequest {
+public class SearchRequest {
 
-    @NotNull
-    String userId;
-    @NotNull
-    Long articleId;
+    String searchKeyword;
 }
