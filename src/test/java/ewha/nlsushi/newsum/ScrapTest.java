@@ -1,6 +1,6 @@
 package ewha.nlsushi.newsum;
 
-import ewha.nlsushi.newsum.api.SignupRequest;
+import ewha.nlsushi.newsum.api.requestform.SignupRequest;
 import ewha.nlsushi.newsum.domain.Article;
 import ewha.nlsushi.newsum.domain.Member;
 import ewha.nlsushi.newsum.domain.ScrapArticle;

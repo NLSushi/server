@@ -1,10 +1,10 @@
 package ewha.nlsushi.newsum.api;
 
+import ewha.nlsushi.newsum.api.requestform.SignupRequest;
 import ewha.nlsushi.newsum.domain.Member;
 import ewha.nlsushi.newsum.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
