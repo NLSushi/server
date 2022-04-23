@@ -5,6 +5,7 @@ import ewha.nlsushi.newsum.api.requestform.UnScrapRequest;
 import ewha.nlsushi.newsum.domain.Article;
 import ewha.nlsushi.newsum.domain.Member;
 import ewha.nlsushi.newsum.domain.ScrapArticle;
+import ewha.nlsushi.newsum.exception.UnScrapUnscrappedArticleException;
 import ewha.nlsushi.newsum.repository.ArticleRepository;
 import ewha.nlsushi.newsum.service.ArticleService;
 import ewha.nlsushi.newsum.service.MemberService;
@@ -61,5 +62,15 @@ public class ScrapTest {
         scrapArticleService.unScrapArticle(member.getUserId(),article.getId());
         //then
         Assertions.assertThat(member.getScrap_articles().size()).isEqualTo(0);
+    }
+    @Test(expected = UnScrapUnscrappedArticleException.class)
+    public void 스크랩안한기사스크랩해제Exception내기(){
+        //given
+        Article article =  articleRepository.save(new Article("스크랩기사","작성자","날짜","회사","이미지","기사원문","기사요약","해시태그","카테고리",false));
+        Member member = memberService.signup(new SignupRequest("scraptestmember"));
+        //when
+        scrapArticleService.unScrapArticle(member.getUserId(), article.getId());
+        //then
+        Assertions.fail("예외 발생 안됨");
     }
 }
