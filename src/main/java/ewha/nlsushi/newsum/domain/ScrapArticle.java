@@ -25,7 +25,6 @@ public class ScrapArticle {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id")
- //   @JsonManagedReference
     @JsonIgnore
     private Article scrap_article;
 

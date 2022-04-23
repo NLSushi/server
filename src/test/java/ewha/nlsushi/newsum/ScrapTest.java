@@ -1,6 +1,7 @@
 package ewha.nlsushi.newsum;
 
 import ewha.nlsushi.newsum.api.requestform.SignupRequest;
+import ewha.nlsushi.newsum.api.requestform.UnScrapRequest;
 import ewha.nlsushi.newsum.domain.Article;
 import ewha.nlsushi.newsum.domain.Member;
 import ewha.nlsushi.newsum.domain.ScrapArticle;
@@ -57,7 +58,7 @@ public class ScrapTest {
         Member member = memberService.signup(new SignupRequest("scraptestmember"));
         ScrapArticle scrap = scrapArticleService.scrapArticle(member.getUserId(),article.getId());
         //when
-        scrapArticleService.UnScrapArticle(scrap.getId());
+        scrapArticleService.unScrapArticle(member.getUserId(),article.getId());
         //then
         Assertions.assertThat(member.getScrap_articles().size()).isEqualTo(0);
     }

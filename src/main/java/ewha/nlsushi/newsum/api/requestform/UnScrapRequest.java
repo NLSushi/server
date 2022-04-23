@@ -12,5 +12,7 @@ import javax.validation.constraints.NotNull;
 public class UnScrapRequest {
 
     @NotNull
-    Long scraparticleId;
+    String userId;
+    @NotNull
+    Long articleId;
 }

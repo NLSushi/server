@@ -46,6 +46,10 @@ public class ArticleService {
         List<Article> articles = articleRepository.findByRecent(true);
         return articleListToDTOList(articles);
     }
+    public List<ArticleOutput> SearchArticlesByHashTag(String hashtag){
+        List<Article> articles = articleRepository.findByHashtag(hashtag);
+        return articleListToDTOList(articles);
+    }
 
 
 

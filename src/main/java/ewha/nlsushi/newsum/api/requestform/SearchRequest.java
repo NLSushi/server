@@ -9,8 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ScrapViewRequest {
+public class SearchRequest {
 
-    @NotNull
-    String userId;
+    String searchKeyword;
 }
