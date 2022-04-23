@@ -31,7 +31,7 @@ public class ScrapApiController {
     }
 
     @DeleteMapping("api/unscrap")
-    public boolean unScrapArticle(@RequestBody @Valid UnScrapRequest request) {
+    public boolean unScrapArticle(@RequestBody @Valid UnScrapRequest request){
         scrapArticleService.unScrapArticle(request.getUserId(), request.getArticleId());
         return true;
     }

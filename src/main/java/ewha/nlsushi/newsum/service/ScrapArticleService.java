@@ -3,6 +3,8 @@ package ewha.nlsushi.newsum.service;
 import ewha.nlsushi.newsum.domain.Article;
 import ewha.nlsushi.newsum.domain.Member;
 import ewha.nlsushi.newsum.domain.ScrapArticle;
+import ewha.nlsushi.newsum.exception.ExceptionEnum;
+import ewha.nlsushi.newsum.exception.UnScrapUnscrappedArticleException;
 import ewha.nlsushi.newsum.repository.*;
 import ewha.nlsushi.newsum.service.outputForm.ArticleOutput;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +41,9 @@ public class ScrapArticleService {
         Member user = memberRepository.findByUserId(userId);
         Optional<Article> article = articleRepository.findById(articleId);
         ScrapArticle target = scrapArticleRepositorySupport.findByUserIdandArticleId(userId,articleId);
+        if(target == null){
+            throw new UnScrapUnscrappedArticleException(ExceptionEnum.UNSCRAP_UNSCRAPPED_ARTICLE);
+        }
         target.getScrap_article().getScrap_articles().remove(target);
         target.getScrap_member().getScrap_articles().remove(target);
         scrapArticleRepository.delete(target);
