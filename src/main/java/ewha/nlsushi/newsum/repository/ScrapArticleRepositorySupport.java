@@ -24,8 +24,10 @@ public class ScrapArticleRepositorySupport extends QuerydslRepositorySupport {
     }
 
     public ScrapArticle findByUserIdandArticleId(String userId, Long articleId){
-        return queryFactory.selectFrom(scrapArticle)
-                .where(scrapArticle.scrap_article.id.eq(articleId))
+        return queryFactory.select(scrapArticle)
+                .from(scrapArticle)
+                .distinct()
+               .where(scrapArticle.scrap_article.id.eq(articleId))
                 .where(scrapArticle.scrap_member.userId.eq(userId))
                 .fetchOne();
     }

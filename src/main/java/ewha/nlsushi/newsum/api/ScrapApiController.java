@@ -1,7 +1,6 @@
 package ewha.nlsushi.newsum.api;
 
 import ewha.nlsushi.newsum.api.requestform.ScrapRequest;
-import ewha.nlsushi.newsum.api.requestform.ScrapViewRequest;
 import ewha.nlsushi.newsum.api.requestform.UnScrapRequest;
 import ewha.nlsushi.newsum.domain.ScrapArticle;
 import ewha.nlsushi.newsum.service.ScrapArticleService;
@@ -26,13 +25,14 @@ public class ScrapApiController {
     }
 
     @GetMapping("api/scrap/view")
-    public ArticleApiController.Result showScrapArticle(@RequestBody @Valid ScrapViewRequest request) {
-        List<ArticleOutput> response = scrapArticleService.showScrapArticle(request.getUserId());
+    public ArticleApiController.Result showScrapArticle(@RequestParam("userId") String userId) {
+        List<ArticleOutput> response = scrapArticleService.showScrapArticle(userId);
         return new ArticleApiController.Result(response);
     }
 
     @DeleteMapping("api/unscrap")
-    public void unScrapArticle(@RequestBody @Valid UnScrapRequest request) {
+    public boolean unScrapArticle(@RequestBody @Valid UnScrapRequest request) {
         scrapArticleService.unScrapArticle(request.getUserId(), request.getArticleId());
+        return true;
     }
 }
