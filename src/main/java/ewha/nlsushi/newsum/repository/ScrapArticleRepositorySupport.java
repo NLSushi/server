@@ -1,14 +1,9 @@
 package ewha.nlsushi.newsum.repository;
 
-import com.querydsl.jpa.JPQLQuery;
-import com.querydsl.jpa.JPQLQueryFactory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import ewha.nlsushi.newsum.domain.Article;
 import ewha.nlsushi.newsum.domain.QArticle;
 import ewha.nlsushi.newsum.domain.QMember;
 import ewha.nlsushi.newsum.domain.ScrapArticle;
-import ewha.nlsushi.newsum.exception.ExceptionEnum;
-import ewha.nlsushi.newsum.exception.UnScrapUnscrappedArticleException;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
