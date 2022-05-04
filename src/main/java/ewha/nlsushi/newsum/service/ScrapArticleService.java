@@ -36,12 +36,16 @@ public class ScrapArticleService {
         handleNoUserIdException(member);
         try{
             Article article = articleRepository.getById(articlePK);
+            ScrapArticle findArticle = scrapArticleRepositorySupport.findByUserIdandArticleId(userId,articlePK);
+            if(findArticle !=null) handleAlreadyScrappedException();
             ScrapArticle scrapArticle = new ScrapArticle(member, article);
+            log.info(member.getUserId()+" 회원 : "+article.getId()+" 기사 스크랩 완료");
             return scrapArticleRepository.save(scrapArticle);
         }
         catch (EntityNotFoundException | DataIntegrityViolationException e){
             handleNoArticleIdException();
         }
+
         return null;
     }
 
@@ -85,5 +89,9 @@ public class ScrapArticleService {
     private void handleNoArticleIdException(){
             log.info("NoArticleIdException 발생");
             throw new ScrapArticleException(ExceptionEnum.WRONG_ARTICLEID_FOR_SCRAP);
+    }
+    private void handleAlreadyScrappedException(){
+        log.info("AlreadyScrappedException 발생");
+        throw new ScrapArticleException(ExceptionEnum.ALREADY_SCRAPPED);
     }
 }
