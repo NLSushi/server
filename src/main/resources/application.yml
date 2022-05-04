@@ -20,6 +20,10 @@ spring:
 server:
   port: 8081
 
+elasticsearch:
+  host: 3.39.14.90
+  port: 9200
+
 logging:
   level:
     org.hibernate.sql: debug

@@ -10,10 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
@@ -57,8 +54,8 @@ public class ArticleApiController {
     }
 
     @GetMapping(value="api/search")
-    public Result searchArticleByHashTag(@RequestBody @Valid SearchRequest request){
-        List<ArticleOutput> response = articleService.SearchArticlesByHashTag(request.getSearchKeyword());
+    public Result searchArticleByHashTag(@RequestParam("hashtag")String hashtag){
+        List<ArticleOutput> response = articleService.SearchArticlesByHashTag(hashtag);
         return new Result(response);
     }
 
