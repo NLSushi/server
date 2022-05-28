@@ -26,7 +26,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Newsum REST API")
                 .version("1.0.0")
-                .description("뉴스 브리핑 서비스 Newsum의 swagger api 입니다:)")
+                .description("뉴스 브리핑 서비스 Newsum의 swagger api 입니다")
                 .build();
     }
 }
