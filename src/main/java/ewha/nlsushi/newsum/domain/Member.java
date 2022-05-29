@@ -1,6 +1,7 @@
 package ewha.nlsushi.newsum.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -19,12 +20,11 @@ public class Member {
     @Column(name = "member_pk")
     private Long id;
 
-    @NonNull
     private String userId;
 
-    @OneToMany(mappedBy = "scrap_member")
+    @OneToMany(mappedBy = "scrapMember")
     @JsonBackReference
-    List<ScrapArticle> scrap_articles = new ArrayList<>();
+    List<ScrapArticle> scrapArticles = new ArrayList<>();
 
     public String getUserId() {
         return userId;

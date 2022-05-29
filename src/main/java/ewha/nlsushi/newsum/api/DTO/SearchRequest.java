@@ -1,14 +1,13 @@
-package ewha.nlsushi.newsum.api.requestform;
+package ewha.nlsushi.newsum.api.DTO;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SearchRequest {
 
     String searchKeyword;

@@ -1,10 +1,9 @@
 package ewha.nlsushi.newsum;
 
-import ewha.nlsushi.newsum.api.requestform.SignupRequest;
 import ewha.nlsushi.newsum.domain.Article;
 import ewha.nlsushi.newsum.repository.ArticleRepository;
 import ewha.nlsushi.newsum.service.ArticleService;
-import ewha.nlsushi.newsum.service.outputForm.ArticleOutput;
+import ewha.nlsushi.newsum.api.response.ArticleResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +38,7 @@ public class ArticleTest {
         articleRepository.save(new Article("제목","작성자","날짜","회사","이미지","기사원문","기사요약","해시태그","카테고리",false));
         articleRepository.save(new Article("제목","작성자","날짜","회사","이미지","기사원문","기사요약","해시태그2","카테고리",false));
         //when
-        List<ArticleOutput> output = articleService.SearchArticlesByHashTag("해시태그");
+        List<ArticleResponse> output = articleService.SearchArticlesByHashTag("해시태그");
         //then
         Assertions.assertThat(output.size()).isEqualTo(2);
     }

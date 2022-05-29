@@ -1,17 +1,14 @@
 package ewha.nlsushi.newsum.service;
 
 import ewha.nlsushi.newsum.domain.Article;
-import ewha.nlsushi.newsum.domain.Member;
 import ewha.nlsushi.newsum.repository.ArticleRepository;
-import ewha.nlsushi.newsum.repository.ArticleRepositorySupport;
 import ewha.nlsushi.newsum.repository.MemberRepository;
-import ewha.nlsushi.newsum.service.outputForm.ArticleOutput;
+import ewha.nlsushi.newsum.api.response.ArticleResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -20,43 +17,44 @@ import java.util.stream.Collectors;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-    private final ArticleRepositorySupport articleRepositorySupport;
     private final MemberRepository memberRepository;
 
     //기사 조회
-    public List<ArticleOutput> showArticles(){
+    public List<ArticleResponse> showArticles(){
         List<Article> articles =  articleRepository.findAll();
-        return articleListToDTOList(articles);
+        log.info("전체 기사 조회");
+        return ArticleResponse.articleListToDTOList(articles);
+    }
+    //언론사별 최신 기사 조회
+    public List<ArticleResponse> showJoongangRecent() {
+        List<Article> articles = articleRepository.findByCompanyAndRecent("중앙일보",true);
+        log.info("중앙일보 최신 기사 조회");
+        return ArticleResponse.articleListToDTOList(articles);
     }
 
-    public List<ArticleOutput> showJoongangRecent() {
-        List<Article> articles = articleRepositorySupport.findJoongangRecent();
-        return articleListToDTOList(articles);
-    }
-    public List<ArticleOutput> showKhanRecent() {
-        List<Article> articles = articleRepositorySupport.findKhanRecent();
-        return articleListToDTOList(articles);
-    }
-    public List<ArticleOutput> showHanRecent() {
-        List<Article> articles = articleRepositorySupport.findHanRecent();
-        return articleListToDTOList(articles);
+    public List<ArticleResponse> showKhanRecent() {
+        List<Article> articles = articleRepository.findByCompanyAndRecent("경향신문",true);
+        log.info("경향신문 최신 기사 조회");
+        return ArticleResponse.articleListToDTOList(articles);
     }
 
-    public List<ArticleOutput> showRecent() {
+    public List<ArticleResponse> showHanRecent() {
+        List<Article> articles = articleRepository.findByCompanyAndRecent("한겨레",true);
+        log.info("한겨레 최신 기사 조회");
+        return ArticleResponse.articleListToDTOList(articles);
+    }
+
+    public List<ArticleResponse> showRecent() {
         List<Article> articles = articleRepository.findByRecent(true);
-        return articleListToDTOList(articles);
+        log.info("최신 기사 조회");
+        return ArticleResponse.articleListToDTOList(articles);
     }
-    public List<ArticleOutput> SearchArticlesByHashTag(String hashtag){
+
+
+    public List<ArticleResponse> SearchArticlesByHashTag(String hashtag){
         List<Article> articles = articleRepository.findByHashtag(hashtag);
-        return articleListToDTOList(articles);
+        log.info("해시태그 기반 기사 조회, 해시태그 : "+hashtag);
+        return ArticleResponse.articleListToDTOList(articles);
     }
 
-
-
-    public List<ArticleOutput> articleListToDTOList(List<Article> articleList){
-        List<ArticleOutput> result = articleList.stream().map(a ->
-                new ArticleOutput(a.getId(),a.getTitle(),a.getWriter(),a.getDate(),a.getCompany(),a.getImg(),a.getArticle_origin(),a.getArticle_extractive(),a.getArticle_hashtag(),a.getCategory()))
-                .collect(Collectors.toList());
-        return result;
-    }
 }

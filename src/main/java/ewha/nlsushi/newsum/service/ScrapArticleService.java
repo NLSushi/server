@@ -6,14 +6,12 @@ import ewha.nlsushi.newsum.domain.ScrapArticle;
 import ewha.nlsushi.newsum.exception.ExceptionEnum;
 import ewha.nlsushi.newsum.exception.Exception.ScrapArticleException;
 import ewha.nlsushi.newsum.repository.*;
-import ewha.nlsushi.newsum.service.outputForm.ArticleOutput;
+import ewha.nlsushi.newsum.api.response.ArticleResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,70 +26,56 @@ public class ScrapArticleService {
     private final ArticleRepository articleRepository;
     private final ScrapArticleRepository scrapArticleRepository;
     private final ArticleService articleService;
-    private final ScrapArticleRepositorySupport scrapArticleRepositorySupport;
 
     @Transactional
-    public ScrapArticle scrapArticle(String userId, Long articlePK){
-        Member member = memberRepository.findByUserId(userId);
-        handleNoUserIdException(member);
-        try{
-            Article article = articleRepository.getById(articlePK);
-            ScrapArticle findArticle = scrapArticleRepositorySupport.findByUserIdandArticleId(userId,articlePK);
-            if(findArticle !=null) handleAlreadyScrappedException();
-            ScrapArticle scrapArticle = new ScrapArticle(member, article);
-            log.info(member.getUserId()+" 회원 : "+article.getId()+" 기사 스크랩 완료");
-            return scrapArticleRepository.save(scrapArticle);
-        }
-        catch (EntityNotFoundException | DataIntegrityViolationException e){
-            handleNoArticleIdException();
-        }
+    public ScrapArticle scrapArticle(String userId, Long articleId) {
+        Member member = memberRepository.findByUserId(userId)
+                .orElseThrow(() -> new ScrapArticleException(ExceptionEnum.WRONG_USERID_FOR_SCRAP));
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ScrapArticleException(ExceptionEnum.WRONG_ARTICLEID_FOR_SCRAP));
 
-        return null;
+        Optional<ScrapArticle> findArticle = scrapArticleRepository.
+                findByScrapMemberAndScrapArticle(member.getId(), articleId);
+        if (findArticle.isPresent()) throw new ScrapArticleException(ExceptionEnum.ALREADY_SCRAPPED);
+
+        ScrapArticle scrapArticle = new ScrapArticle(member, article);
+        log.info(member.getUserId() + " 회원 : " + article.getId() + " 기사 스크랩 완료");
+
+        return scrapArticleRepository.save(scrapArticle);
     }
 
     @Transactional
-    public void unScrapArticle(String userId, Long articleId){
-        Member member = memberRepository.findByUserId(userId);
-        handleNoUserIdException(member);
-        try {
-            Article article = articleRepository.getById(articleId);
+    public void unScrapArticle(String userId, Long articleId) {
+        Member member = memberRepository.findByUserId(userId)
+                .orElseThrow(() -> new ScrapArticleException(ExceptionEnum.WRONG_USERID_FOR_SCRAP));
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ScrapArticleException(ExceptionEnum.WRONG_ARTICLEID_FOR_SCRAP));
 
-            ScrapArticle target = scrapArticleRepositorySupport.findByUserIdandArticleId(userId, articleId);
-            if (target == null) {
-                throw new ScrapArticleException(ExceptionEnum.UNSCRAP_UNSCRAPPED_ARTICLE);
-            }
-            target.getScrap_article().getScrap_articles().remove(target);
-            target.getScrap_member().getScrap_articles().remove(target);
-            scrapArticleRepository.delete(target);
-        }
-        catch (EntityNotFoundException e){
-            handleNoArticleIdException();
-        }
-    }
+        ScrapArticle target = scrapArticleRepository
+                .findByScrapMemberAndScrapArticle(member.getId(),articleId)
+                .orElseThrow(()->new ScrapArticleException(ExceptionEnum.UNSCRAP_UNSCRAPPED_ARTICLE));
 
-    public List<ArticleOutput> showScrapArticle(String userId){
-        Member member = memberRepository.findByUserId(userId);
-        handleNoUserIdException(member);
-        List<ScrapArticle> scrapArticles = member.getScrap_articles();
+        target.getScrap_article().getScrapArticles().remove(target);
+        target.getScrap_member().getScrapArticles().remove(target);
+        scrapArticleRepository.delete(target);
+
+        log.info(member.getUserId() + " 회원 : " + article.getId() + " 기사 스크랩 취소");
+        }
+
+
+
+    public List<ArticleResponse> showScrapArticle(String userId) {
+        Member member = memberRepository.findByUserId(userId)
+                .orElseThrow(() -> new ScrapArticleException(ExceptionEnum.WRONG_USERID_FOR_SCRAP));
+
+        List<ScrapArticle> scrapArticles = member.getScrapArticles();
         List<Article> articles = new ArrayList<>();
-        for(ScrapArticle each: scrapArticles)
+        for (ScrapArticle each : scrapArticles)
             articles.add(each.getScrap_article());
-        return articleService.articleListToDTOList(articles);
+
+        log.info(member.getUserId() + " 회원의 스크랩 기사 리스트 조회, 총 스크랩 기사 갯수 : "+articles.size()+"개");
+        return ArticleResponse.articleListToDTOList(articles);
     }
 
-    //exception handling
-    private void handleNoUserIdException(Member member){
-        if(member == null){
-            log.info("NoUserIdException 발생");
-            throw new ScrapArticleException(ExceptionEnum.WRONG_USERID_FOR_SCRAP);
-        }
-    }
-    private void handleNoArticleIdException(){
-            log.info("NoArticleIdException 발생");
-            throw new ScrapArticleException(ExceptionEnum.WRONG_ARTICLEID_FOR_SCRAP);
-    }
-    private void handleAlreadyScrappedException(){
-        log.info("AlreadyScrappedException 발생");
-        throw new ScrapArticleException(ExceptionEnum.ALREADY_SCRAPPED);
-    }
+
 }
