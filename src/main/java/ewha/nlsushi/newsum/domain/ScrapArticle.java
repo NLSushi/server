@@ -19,27 +19,26 @@ public class ScrapArticle {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "member_pk")
-  //  @JsonManagedReference
     @JsonIgnore
-    private Member scrap_member;
+    private Member scrapMember;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id")
     @JsonIgnore
-    private Article scrap_article;
+    private Article scrapArticle;
 
     public Member getScrap_member() {
-        return scrap_member;
+        return scrapMember;
     }
 
     public Article getScrap_article() {
-        return scrap_article;
+        return scrapArticle;
     }
 
     public ScrapArticle(Member scrap_member, Article scrap_article) {
-        this.scrap_member = scrap_member;
-        this.scrap_article = scrap_article;
-        scrap_article.scrap_articles.add(this);
-        scrap_member.scrap_articles.add(this);
+        this.scrapMember = scrap_member;
+        this.scrapArticle = scrap_article;
+        scrap_article.scrapArticles.add(this);
+        scrap_member.scrapArticles.add(this);
     }
 }

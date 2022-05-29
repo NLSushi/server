@@ -3,6 +3,9 @@ spring:
     active: test
 ---
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   profiles: test
   datasource:
     url: jdbc:h2:mem:testdb

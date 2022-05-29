@@ -1,12 +1,9 @@
 package ewha.nlsushi.newsum;
 
-import ewha.nlsushi.newsum.api.requestform.SignupRequest;
-import ewha.nlsushi.newsum.domain.Article;
-import ewha.nlsushi.newsum.exception.Exception.ScrapArticleException;
+import ewha.nlsushi.newsum.api.DTO.SignupRequest;
 import ewha.nlsushi.newsum.exception.Exception.UserAccountException;
 import ewha.nlsushi.newsum.service.MemberService;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -32,9 +32,9 @@ public class Article {
     private String category;
     private boolean recent;
 
-    @OneToMany(mappedBy = "scrap_article")
+    @OneToMany(mappedBy = "scrapArticle")
     @JsonBackReference
-    List<ScrapArticle> scrap_articles = new ArrayList<>();
+    List<ScrapArticle> scrapArticles = new ArrayList<>();
 
     public Long getId() {
         return id;

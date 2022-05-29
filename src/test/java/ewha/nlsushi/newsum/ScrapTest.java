@@ -1,6 +1,6 @@
 package ewha.nlsushi.newsum;
 
-import ewha.nlsushi.newsum.api.requestform.SignupRequest;
+import ewha.nlsushi.newsum.api.DTO.SignupRequest;
 import ewha.nlsushi.newsum.domain.Article;
 import ewha.nlsushi.newsum.domain.Member;
 import ewha.nlsushi.newsum.domain.ScrapArticle;
@@ -49,7 +49,7 @@ public class ScrapTest {
         //when
         scrapArticleService.scrapArticle(member.getUserId(),article.getId());
         //then
-        Assertions.assertThat(member.getScrap_articles().size()).isEqualTo(1);
+        Assertions.assertThat(member.getScrapArticles().size()).isEqualTo(1);
     }
     @Test
     public void 스크랩해제하기(){
@@ -60,7 +60,7 @@ public class ScrapTest {
         //when
         scrapArticleService.unScrapArticle(member.getUserId(),article.getId());
         //then
-        Assertions.assertThat(member.getScrap_articles().size()).isEqualTo(0);
+        Assertions.assertThat(member.getScrapArticles().size()).isEqualTo(0);
     }
     @Test(expected = ScrapArticleException.class)
     public void 스크랩안한기사스크랩해제Exception내기(){
