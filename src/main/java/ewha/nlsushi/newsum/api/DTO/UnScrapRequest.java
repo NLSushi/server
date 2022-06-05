@@ -15,6 +15,6 @@ public class UnScrapRequest {
 
     @NotBlank
     String userId;
-    @NotBlank
+    @NotNull
     Long articleId;
 }

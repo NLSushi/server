@@ -15,6 +15,6 @@ public class ScrapRequest {
 
     @NotBlank
     String userId;
-    @NotBlank
+    @NotNull
     Long articleId;
 }
