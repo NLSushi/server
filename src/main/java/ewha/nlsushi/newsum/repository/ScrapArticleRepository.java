@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface ScrapArticleRepository extends JpaRepository<ScrapArticle,Long> {
 
-    Optional<ScrapArticle> findByScrapMemberAndScrapArticle(long memberid, long articleid);
+    Optional<ScrapArticle> findByScrapMemberAndScrapArticle(Member member, Article article);
 
 }

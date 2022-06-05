@@ -35,7 +35,7 @@ public class ScrapArticleService {
                 .orElseThrow(() -> new ScrapArticleException(ExceptionEnum.WRONG_ARTICLEID_FOR_SCRAP));
 
         Optional<ScrapArticle> findArticle = scrapArticleRepository.
-                findByScrapMemberAndScrapArticle(member.getId(), articleId);
+                findByScrapMemberAndScrapArticle(member, article);
         if (findArticle.isPresent()) throw new ScrapArticleException(ExceptionEnum.ALREADY_SCRAPPED);
 
         ScrapArticle scrapArticle = new ScrapArticle(member, article);
@@ -52,7 +52,7 @@ public class ScrapArticleService {
                 .orElseThrow(() -> new ScrapArticleException(ExceptionEnum.WRONG_ARTICLEID_FOR_SCRAP));
 
         ScrapArticle target = scrapArticleRepository
-                .findByScrapMemberAndScrapArticle(member.getId(),articleId)
+                .findByScrapMemberAndScrapArticle(member, article)
                 .orElseThrow(()->new ScrapArticleException(ExceptionEnum.UNSCRAP_UNSCRAPPED_ARTICLE));
 
         target.getScrap_article().getScrapArticles().remove(target);
